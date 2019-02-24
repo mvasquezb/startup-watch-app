@@ -3,7 +3,13 @@
     xmlns="http://schemas.nativescript.org/tns.xsd">
 
     <ActionBar class="action-bar">
-        <Label class="action-bar-title" text="Home"></Label>
+        <Label class="action-bar-title" text="DPD"></Label>
+        <ActionItem
+            tap="{{ logout }}"
+            ios.position="left"
+            android.position="actionBar"
+            text="Logout">
+        </ActionItem>
     </ActionBar>
 
     <GridLayout>

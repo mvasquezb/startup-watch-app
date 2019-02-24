@@ -5,7 +5,7 @@ function handleErrors(error) {
     console.error(error.message);
 }
 
-let _currentUser = null;
+var _currentUser = null;
 
 exports.currentUser = function () {
     if (!_currentUser) {
@@ -18,7 +18,7 @@ exports.logout = function () {
     return new Promise((resolve, reject) => {
         try {
             _currentUser = null;
-            localStorage.setItem(`${stateKey}/user`, undefined);
+            localStorage.removeItem(`${stateKey}/user`);
             resolve();
         } catch (e) {
             handleErrors(e);

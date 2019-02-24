@@ -9,7 +9,7 @@ const usersService = require("~/services/user-service");
 
 backendService.setup();
 
-application.start({ moduleName: usersService.currentUser() ? "home/home-page" : "login/login-page" });
+application.start({ moduleName: "login/login-page" });
 
 /*
 Do not place any code after the application has been started as it will not
