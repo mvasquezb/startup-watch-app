@@ -23,8 +23,8 @@
 			</StackLayout>
 
 			<Button text="{{ isLoggingIn ? 'Log In' : 'Sign Up' }}" tap="{{ submit }}" class="btn btn-primary m-t-20" />
-			<Label visibility="{{ isLoggingIn ? 'visible' : 'collapse' }}" text="Forgot your password?" class="login-label" tap="{{ forgotPassword }}"
-			/>
+			<!-- <Label visibility="{{ isLoggingIn ? 'visible' : 'collapse' }}" text="Forgot your password?" class="login-label" tap="{{ forgotPassword }}"
+			/> -->
 		</StackLayout>
 
 		<Label class="login-label sign-up-label" tap="{{ toggleForm }}">

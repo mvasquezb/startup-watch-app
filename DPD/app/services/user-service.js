@@ -5,9 +5,19 @@ function handleErrors(error) {
     console.error(error.message);
 }
 
+let _currentUser = null;
+
+exports.currentUser = function () {
+    if (!_currentUser) {
+        _currentUser = JSON.parse(localStorage.getItem(`${stateKey}/user`));
+    }
+    return _currentUser;
+}
+
 exports.logout = function () {
     return new Promise((resolve, reject) => {
         try {
+            _currentUser = null;
             localStorage.setItem(`${stateKey}/user`, undefined);
             resolve();
         } catch (e) {

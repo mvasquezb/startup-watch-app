@@ -1,8 +1,10 @@
 const observableModule = require("tns-core-modules/data/observable");
+const usersService = require("~/services/user-service");
+
 
 function HomeViewModel() {
     const viewModel = observableModule.fromObject({
-        /* Add your view model properties here */
+        currentUser: usersService.currentUser(),
     });
 
     return viewModel;
