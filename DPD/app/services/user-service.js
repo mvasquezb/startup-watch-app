@@ -1,6 +1,5 @@
 const localStorage = require("nativescript-localstorage");
 const stateKey = "dpd-test";
-const stateUserKey = "user";
 
 function handleErrors(error) {
     console.error(error.message);
@@ -9,7 +8,7 @@ function handleErrors(error) {
 exports.logout = function () {
     return new Promise((resolve, reject) => {
         try {
-            localStorage.setItem(`${stateKey}/${stateUserKey}`, undefined);
+            localStorage.setItem(`${stateKey}/user`, undefined);
             resolve();
         } catch (e) {
             handleErrors(e);
@@ -21,12 +20,15 @@ exports.logout = function () {
 exports.register = function (user) {
     return new Promise((resolve, reject) => {
         try {
-            logout();
-            let user = {
+            let userData = {
                 username: user.email,
                 password: user.password,
             };
-            localStorage.setItem(`${stateKey}/${stateUserKey}`, user);
+            localStorage.setItem(`${stateKey}/user`, JSON.stringify(userData));
+            // Adding user to the end of the list, not checking doubles
+            let userDb = JSON.parse(localStorage.getItem(`${stateKey}/users`)) || [];
+            userDb.push(userData);
+            localStorage.setItem(`${stateKey}/users`, JSON.stringify(userDb));
             resolve();
         } catch (e) {
             handleErrors(e);
@@ -35,16 +37,23 @@ exports.register = function (user) {
     });
 };
 
-// Same as register, separated to future proof app
+
 exports.login = function (user) {
     return new Promise((resolve, reject) => {
         try {
-            let user = {
+            let userData = {
                 username: user.email,
                 password: user.password,
             };
-            localStorage.setItem(`${stateKey}/${stateUserKey}`, user);
-            resolve();           
+            let userDb = JSON.parse(localStorage.getItem(`${stateKey}/users`)) || [];
+            let matchedUser = userDb.filter(({ username, password }) => {
+                return username === user.email && password === user.password
+            });
+            if (!matchedUser.length) {
+                throw new Error("Couldn't find that user");
+            }
+            localStorage.setItem(`${stateKey}/user`, JSON.stringify(matchedUser[0]));
+            resolve();
         } catch (e) {
             handleErrors(e);
             reject();
