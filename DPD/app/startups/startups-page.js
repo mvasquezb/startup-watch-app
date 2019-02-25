@@ -1,6 +1,7 @@
 const frame = require("ui/frame");
+const StartupsViewModel = require("./startups-viewmodel");
 
 function onNavigatingTo(args) {
     const page = args.object;
-    page.bindingContext = args.context;
+    page.bindingContext = new StartupsViewModel();
 }
