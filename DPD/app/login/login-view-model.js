@@ -7,7 +7,7 @@ function LoginViewModel() {
     const viewModel = observableModule.fromObject({
         email: "test@dpd.com",
         password: "dpdtest",
-        confirmPassword: "",
+        confirmPassword: "dpdtest",
         get currentUser() {
             return userService.currentUser();
         },

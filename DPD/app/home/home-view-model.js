@@ -4,6 +4,7 @@ const topmost = require("ui/frame").topmost;
 
 function HomeViewModel() {
     const viewModel = observableModule.fromObject({
+        title: "DPD",
         currentUser: usersService.currentUser(),
         logout() {
             usersService.logout().then(() => {

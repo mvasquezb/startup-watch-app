@@ -1,18 +1,26 @@
 <Page class="page"
-    navigatingTo="onNavigatingTo"  
+    navigatingTo="onNavigatingTo"
     xmlns="http://schemas.nativescript.org/tns.xsd">
 
     <ActionBar class="action-bar">
-        <Label class="action-bar-title" text="DPD"></Label>
-        <ActionItem
-            tap="{{ logout }}"
-            ios.position="left"
-            android.position="actionBar"
-            text="Logout">
+        <Label class="action-bar-title" text="{{ title }}"></Label>
+        <ActionItem tap="{{ logout }}" ios.position="left" android.position="actionBar" text="Logout">
         </ActionItem>
     </ActionBar>
 
     <GridLayout>
-        <Label text="{{ currentUser.username }}"></Label>
+        <TabView id="tabContainer">
+            <TabViewItem title="Startups" ios:iconSource="res://icons/list" android:iconSource="res://baseline_list_black">
+                <Frame defaultPage="startups/startups-page"></Frame>
+            </TabViewItem>
+
+            <TabViewItem title="Favourites" ios:iconSource="res://icons/star" android:iconSource="res://baseline_favorite_border_black">
+                <Frame defaultPage="favourites/favourites-page"></Frame>
+            </TabViewItem>
+
+            <TabViewItem title="Visualization" ios:iconSource="res://icons/graph" android:iconSource="res://baseline_bar_chart_black">
+                <Frame defaultPage="graph/graph-page"></Frame>
+            </TabViewItem>
+        </TabView>
     </GridLayout>
 </Page>

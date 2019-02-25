@@ -1,0 +1,18 @@
+<Page class="page"
+    navigatingTo="onNavigatingTo" 
+    xmlns="http://schemas.nativescript.org/tns.xsd">
+
+    <GridLayout>
+        <ListView items="{{ items }}" itemTap="{{ onItemTap }}" class="list-group">
+            <ListView.itemTemplate>
+                <StackLayout orientation="horizontal" class="list-group-item">
+                    <Label text="{{ name }}" textWrap="true"></Label>
+                    <StackLayout orientation="vertical" class="list-group-item">
+                        <Label text="{{ industry }}" textWrap="true"></Label>
+                        <Label text="{{ solution }}" textWrap="true"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </ListView.itemTemplate>
+        </ListView>
+    </GridLayout>
+</Page>
