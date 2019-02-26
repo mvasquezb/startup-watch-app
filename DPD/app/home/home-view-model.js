@@ -8,7 +8,9 @@ function HomeViewModel() {
         currentUser: usersService.currentUser(),
         logout() {
             usersService.logout().then(() => {
-                topmost().navigate({
+                let topFrame = topmost();
+                let rootFrame = (topFrame.id == "top-frame") ? topFrame : topFrame.parent.page.frame;
+                rootFrame.navigate({
                     moduleName: "login/login-page",
                     clearHistory: true,
                 });

@@ -11,15 +11,15 @@
     <GridLayout>
         <TabView id="tabContainer">
             <TabViewItem title="Startups" ios:iconSource="res://icons/list" android:iconSource="res://baseline_list_black">
-                <Frame defaultPage="startups/startups-page"></Frame>
+                <Frame id="startups-frame" defaultPage="startups/startups-page"></Frame>
             </TabViewItem>
 
             <TabViewItem title="Favourites" ios:iconSource="res://icons/star" android:iconSource="res://baseline_favorite_border_black">
-                <Frame defaultPage="favourites/favourites-page"></Frame>
+                <Frame id="favourites-frame" defaultPage="favourites/favourites-page"></Frame>
             </TabViewItem>
 
             <TabViewItem title="Visualization" ios:iconSource="res://icons/graph" android:iconSource="res://baseline_bar_chart_black">
-                <Frame defaultPage="graph/graph-page"></Frame>
+                <Frame id="graph-frame" defaultPage="graph/graph-page"></Frame>
             </TabViewItem>
         </TabView>
     </GridLayout>
