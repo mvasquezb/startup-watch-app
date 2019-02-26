@@ -5,3 +5,5 @@ function onNavigatingTo(args) {
     const page = args.object;
     page.bindingContext = new StartupsViewModel();
 }
+
+exports.onNavigatingTo = onNavigatingTo;
