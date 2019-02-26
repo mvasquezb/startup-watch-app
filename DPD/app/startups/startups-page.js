@@ -3,7 +3,8 @@ const StartupsViewModel = require("./startups-viewmodel");
 
 function onNavigatingTo(args) {
     const page = args.object;
-    page.bindingContext = new StartupsViewModel();
+    const viewModel = new StartupsViewModel();
+    page.bindingContext = viewModel;
     frameModule.topmost().actionBarVisibility = "never";
 }
 
