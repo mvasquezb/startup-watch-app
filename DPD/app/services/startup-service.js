@@ -47,3 +47,28 @@ exports.getSpreadSheetData = (spreadsheetId, range) => {
         });
     });
 }
+
+exports.markFavourite = (startup, selected = true) => {
+    return new Promise((resolve, reject) => {
+        try {
+            let currentUser = JSON.parse(localStorage.getItem(`${stateKey}/user`));
+            let favouritesByUser = JSON.parse(localStorage.getItem(`${stateKey}/${currentUser.username}/favourites`));
+            if (startup.name in favouritesByUser) {
+                if (!selected) {
+                    delete favouritesByUser[startup.name];
+                    startup.favourite = false;
+                }
+            } else {
+                if (selected) {
+                    favouritesByUser[startup.name] = true;
+                    startup.favourite = true;
+                }
+            }
+            localStorage.setItemObject(`${stateKey}/${currentUser.name}/favourites`, favouritesByUser);
+            resolve(startup);
+        } catch (e) {
+            handleErrors(e);
+            reject(e);
+        }
+    });
+}
