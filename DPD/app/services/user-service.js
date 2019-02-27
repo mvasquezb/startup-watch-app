@@ -35,6 +35,7 @@ exports.register = function (user) {
                 password: user.password,
             };
             localStorage.setItem(`${stateKey}/user`, JSON.stringify(userData));
+            localStorage.setItemObject(`${stateKey}/${userData.username}/favourites`, {});
             // Adding user to the end of the list, not checking doubles
             let userDb = JSON.parse(localStorage.getItem(`${stateKey}/users`)) || [];
             userDb.push(userData);

@@ -1,4 +1,5 @@
 const localStorage = require("nativescript-localstorage");
+const usersService = require("~/services/user-service");
 const http = require("http");
 
 const stateKey = "dpd-test";
@@ -33,13 +34,25 @@ function formatJSONResults(values) {
     return startups;
 }
 
-exports.getSpreadSheetData = (spreadsheetId, range) => {
+function markFavourites(startups, user) {
+    let favouritesByUser = JSON.parse(localStorage.getItem(`${stateKey}/${user.username}/favourites`));
+    return startups.map(({ favourite, ...startup }) => {
+        return { 
+            favourite: startup.name in favouritesByUser,
+            ...startup
+        };
+    });
+}
+
+exports.getStartups = (spreadsheetId, range) => {
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${API_KEY}`;
     
     return new Promise((resolve, reject) => {
         http.getJSON(url).then((result) => {
             let startups = formatJSONResults(result.values);
-            localStorage.setItem(`${stateKey}/startups`);
+            let currentUser = usersService.currentUser();
+            startups = markFavourites(startups, currentUser);
+            localStorage.setItemObject(`${stateKey}/startups`, startups);
             resolve(startups);
         }).catch((e) => {
             handleErrors(e);
@@ -51,7 +64,7 @@ exports.getSpreadSheetData = (spreadsheetId, range) => {
 exports.markFavourite = (startup, selected = true) => {
     return new Promise((resolve, reject) => {
         try {
-            let currentUser = JSON.parse(localStorage.getItem(`${stateKey}/user`));
+            let currentUser = usersService.currentUser();
             let favouritesByUser = JSON.parse(localStorage.getItem(`${stateKey}/${currentUser.username}/favourites`));
             if (startup.name in favouritesByUser) {
                 if (!selected) {

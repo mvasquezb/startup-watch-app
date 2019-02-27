@@ -12,7 +12,7 @@ function StartupsViewModel() {
         loading: true,
         refreshData() {
             this.loading = true;
-            startupsService.getSpreadSheetData(spreadsheetId, range)
+            startupsService.getStartups(spreadsheetId, range)
                 .then((startups) => {
                     this.startups = startups;
                 })
@@ -34,6 +34,17 @@ function StartupsViewModel() {
                 }
             })
         },
+        onFavouriteTap(args) {
+            const tappedIndex = args.index;
+            const tappedItem = this.startups[tappedIndex];
+            startupsService.markFavourite(tappedName)
+                .then((startup) => {
+                    this.startups[tappedIndex] = startup;
+                })
+                .catch((e) => {
+                    dialogs.alert(e.message);
+                });
+        }
     });
     viewModel.refreshData();
 
