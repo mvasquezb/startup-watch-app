@@ -6,11 +6,13 @@
         <ListView visibility="{{ !loading ? 'visible' : 'collapsed' }}" items="{{ startups }}" itemTap="{{ onItemTap }}" class="list-group">
             <ListView.itemTemplate>
                 <StackLayout orientation="horizontal" class="list-group-item">
-                    <Label text="{{ name }}" textWrap="true"></Label>
+                    <Label text="{{ name }}" textWrap="true" class=""></Label>
                     <StackLayout orientation="vertical" class="list-group-item">
                         <Label text="{{ industry }}" textWrap="true"></Label>
                         <Label text="{{ solution }}" textWrap="true"></Label>
                     </StackLayout>
+                    <!-- Font Awesome heart icon -->
+                    <Button text="&#xf004;" onTap="{{ onFavouriteTap }}" class="btn btn-favourite {{ favourite ? 'fas' : 'far' }}"></Button>
                 </StackLayout>
             </ListView.itemTemplate>
         </ListView>

@@ -28,3 +28,13 @@ refer to http://docs.nativescript.org/ui/theme.
 .description-label{
     margin-bottom: 15;
 }
+
+.far {
+    font-family: "Font Awesome 5 Free", "fa-regular-400";
+    font-weight: 400;
+}
+
+.fas {
+    font-family: "Font Awesome 5 Free", "fa-solid-900";
+    font-weight: 900;
+}
