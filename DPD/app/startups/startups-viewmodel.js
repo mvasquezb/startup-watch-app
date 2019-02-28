@@ -11,8 +11,9 @@ function StartupsViewModel(favouritesOnly = false) {
     const viewModel = observableModule.fromObject({
         startups: null,
         visibleItems: [],
-        filter: null,
+        filterText: null,
         loading: true,
+        searchHint: "Search",
         loadData() {
             this.loading = true;
             startupsService.getStartups()
@@ -40,27 +41,29 @@ function StartupsViewModel(favouritesOnly = false) {
         _startupsLoaded(startups) {
             this.startups = startups.map((e) => observableModule.fromObjectRecursive(e));
             this.visibleItems = this._getVisibleItems();
-            if (this.filter) {
-                this.filterItems(this.filter)
+            if (this.filterText) {
+                this.filterItems(this.filterText)
             }
         },
         _getVisibleItems() {
-            console.log(this.startups.filter((s) => s.favourite));
             if (favouritesOnly) {
                 return this.startups.filter((s) => s.favourite); 
             }
             return this.startups;
         },
-        filterItems(filter) {
-            visibleItems = this.startups.filter((value) => {
-                return value.name.includes(filter)
-                    || value.industry.includes(filter)
-                    || value.solution.includes(filter)
-                    || value.country.includes(filter)
-                    || value.contactDate.includes(filter)
-                    || value.website.includes(filter)
-                    || value.incubator.includes(filter);
-            });
+        filterItems(filter = this.filterText) {
+            this.visibleItems = this._getVisibleItems();
+            if (filter) {
+                this.visibleItems = this.visibleItems.filter((value) => {
+                    return value.name.includes(filter)
+                        || value.industry.includes(filter)
+                        || value.solution.includes(filter)
+                        || value.country.includes(filter)
+                        || value.contactDate.includes(filter)
+                        || value.website.includes(filter)
+                        || value.incubator.includes(filter);
+                });
+            }
         },
         onItemTap(args) {
             const tappedIndex = args.index;
@@ -87,6 +90,12 @@ function StartupsViewModel(favouritesOnly = false) {
         }
     });
     viewModel.loadData();
+    
+    viewModel.addEventListener(observableModule.Observable.propertyChangeEvent, (args) => {
+        if (args.propertyName === "filterText") {
+            viewModel.filterItems();
+        }
+    });
 
     return viewModel;
 }
