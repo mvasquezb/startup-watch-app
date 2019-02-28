@@ -2,8 +2,8 @@ const localStorage = require("nativescript-localstorage");
 const stateKey = "dpd-test";
 
 function handleErrors(error) {
-    console.error(error.stack);
-    console.error(error.message);
+    console.log(error.stack);
+    console.log(error.message);
 }
 
 var _currentUser = null;
@@ -61,7 +61,7 @@ exports.login = function (user) {
             let matchedUser = userDb.filter(({ username, password }) => {
                 return username === user.email && password === user.password
             });
-            if (!matchedUser.length) {
+            if (matchedUser.length == 0) {
                 throw new Error("Couldn't find that user");
             }
             localStorage.setItem(`${stateKey}/user`, JSON.stringify(matchedUser[0]));

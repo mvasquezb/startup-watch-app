@@ -16,8 +16,8 @@ const FIELD_MAP = {
 };
 
 function handleErrors(e) {
-    console.error(e.stack);
-    console.error(e.message);
+    console.log(e.stack);
+    console.log(e.message);
 }
 
 function formatJSONResults(values) {
@@ -45,7 +45,19 @@ function markFavourites(startups, user) {
     });
 }
 
-exports.getStartups = (spreadsheetId, range) => {
+exports.getStartups = () => {
+    return new Promise((resolve, reject) => {
+        try {
+            let startups = JSON.parse(localStorage.getItem(`${stateKey}/startups`));
+            resolve(startups);
+        } catch(e) {
+            handleErrors(e);
+            reject(e);
+        }
+    });
+}
+
+exports.getRemoteStartups = (spreadsheetId, range) => {
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${API_KEY}`;
     
     return new Promise((resolve, reject) => {
