@@ -2,6 +2,7 @@ const localStorage = require("nativescript-localstorage");
 const stateKey = "dpd-test";
 
 function handleErrors(error) {
+    console.error(error.stack);
     console.error(error.message);
 }
 
@@ -35,7 +36,7 @@ exports.register = function (user) {
                 password: user.password,
             };
             localStorage.setItem(`${stateKey}/user`, JSON.stringify(userData));
-            localStorage.setItemObject(`${stateKey}/${userData.username}/favourites`, {});
+            localStorage.setItem(`${stateKey}/${userData.username}/favourites`, JSON.stringify({}));
             // Adding user to the end of the list, not checking doubles
             let userDb = JSON.parse(localStorage.getItem(`${stateKey}/users`)) || [];
             userDb.push(userData);
@@ -64,6 +65,10 @@ exports.login = function (user) {
                 throw new Error("Couldn't find that user");
             }
             localStorage.setItem(`${stateKey}/user`, JSON.stringify(matchedUser[0]));
+            let favouritesKey = `${stateKey}/${userData.username}/favourites`;
+            if (localStorage.getItem(favouritesKey) == null) {
+                localStorage.setItem(favouritesKey, JSON.stringify({}));
+            }
             resolve();
         } catch (e) {
             handleErrors(e);

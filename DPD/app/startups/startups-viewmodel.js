@@ -1,4 +1,5 @@
 const observableModule = require("tns-core-modules/data/observable");
+const ObservableArray = require("tns-core-modules/data/observable-array").ObservableArray;
 const frame = require("ui/frame");
 const dialogs = require("tns-core-modules/ui/dialogs");
 const startupsService = require("~/services/startup-service");
@@ -14,7 +15,7 @@ function StartupsViewModel() {
             this.loading = true;
             startupsService.getStartups(spreadsheetId, range)
                 .then((startups) => {
-                    this.startups = startups;
+                    this.startups = startups.map((e) => observableModule.fromObjectRecursive(e));
                 })
                 .catch((e) => {
                     dialogs.alert(e.message);
@@ -35,9 +36,8 @@ function StartupsViewModel() {
             })
         },
         onFavouriteTap(args) {
-            const tappedIndex = args.index;
-            const tappedItem = this.startups[tappedIndex];
-            startupsService.markFavourite(tappedName)
+            const tappedIndex = this.startups.indexOf(args.object.bindingContext);
+            startupsService.toggleFavourite(this.startups[tappedIndex])
                 .then((startup) => {
                     this.startups[tappedIndex] = startup;
                 })

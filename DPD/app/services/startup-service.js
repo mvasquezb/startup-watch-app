@@ -16,7 +16,8 @@ const FIELD_MAP = {
 };
 
 function handleErrors(e) {
-    console.log(e.message);
+    console.error(e.stack);
+    console.error(e.message);
 }
 
 function formatJSONResults(values) {
@@ -52,7 +53,7 @@ exports.getStartups = (spreadsheetId, range) => {
             let startups = formatJSONResults(result.values);
             let currentUser = usersService.currentUser();
             startups = markFavourites(startups, currentUser);
-            localStorage.setItemObject(`${stateKey}/startups`, startups);
+            localStorage.setItem(`${stateKey}/startups`, JSON.stringify(startups));
             resolve(startups);
         }).catch((e) => {
             handleErrors(e);
@@ -61,23 +62,19 @@ exports.getStartups = (spreadsheetId, range) => {
     });
 }
 
-exports.markFavourite = (startup, selected = true) => {
+exports.toggleFavourite = (startup) => {
     return new Promise((resolve, reject) => {
         try {
             let currentUser = usersService.currentUser();
             let favouritesByUser = JSON.parse(localStorage.getItem(`${stateKey}/${currentUser.username}/favourites`));
             if (startup.name in favouritesByUser) {
-                if (!selected) {
-                    delete favouritesByUser[startup.name];
-                    startup.favourite = false;
-                }
+                delete favouritesByUser[startup.name];
+                startup.favourite = false;
             } else {
-                if (selected) {
-                    favouritesByUser[startup.name] = true;
-                    startup.favourite = true;
-                }
+                favouritesByUser[startup.name] = true;
+                startup.favourite = true;
             }
-            localStorage.setItemObject(`${stateKey}/${currentUser.name}/favourites`, favouritesByUser);
+            localStorage.setItem(`${stateKey}/${currentUser.username}/favourites`, JSON.stringify(favouritesByUser));
             resolve(startup);
         } catch (e) {
             handleErrors(e);

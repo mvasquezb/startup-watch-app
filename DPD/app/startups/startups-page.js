@@ -13,3 +13,11 @@ function onNavigatingTo(args) {
 }
 
 exports.onNavigatingTo = onNavigatingTo;
+
+function onFavouriteTap(args) {
+    const page = args.object.page;
+    const viewModel = page.bindingContext;
+    viewModel.onFavouriteTap(args);
+}
+
+exports.onFavouriteTap = onFavouriteTap;
