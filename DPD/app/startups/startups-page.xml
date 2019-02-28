@@ -12,7 +12,7 @@
                         <Label text="{{ solution }}" textWrap="true"></Label>
                     </StackLayout>
                     <!-- Font Awesome heart icon -->
-                    <Button text="&#61444;" onTap="onFavouriteTap" class="btn btn-favourite {{ favourite ? 'fas' : 'far' }}"></Button>
+                    <Button loaded="buttonLoaded" text="&#61444;" onTap="onFavouriteTap" class="btn btn-favourite {{ favourite ? 'fas' : 'far' }}"></Button>
                     <Label text="{{ favourite ? 'favourite' : 'no favourite' }}" textWrap="true" />
                 </StackLayout>
             </ListView.itemTemplate>

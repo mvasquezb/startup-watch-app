@@ -22,3 +22,10 @@ function onFavouriteTap(args) {
 }
 
 exports.onFavouriteTap = onFavouriteTap;
+
+function buttonLoaded(args) {
+    const button = args.object;
+    button.android.setFocusable(false);
+}
+
+exports.buttonLoaded = buttonLoaded;
