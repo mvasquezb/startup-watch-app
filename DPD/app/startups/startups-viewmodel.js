@@ -10,17 +10,37 @@ const range = "Sheet1";
 function StartupsViewModel() {
     const viewModel = observableModule.fromObject({
         startups: null,
+        visibleItems: [],
+        filter: null,
         loading: true,
         refreshData() {
             this.loading = true;
             startupsService.getStartups(spreadsheetId, range)
                 .then((startups) => {
                     this.startups = startups.map((e) => observableModule.fromObjectRecursive(e));
+                    this.visibleItems = this._getVisibleItems();
+                    if (this.filter) {
+                        this.filterItems(this.filter)
+                    }
                 })
                 .catch((e) => {
                     dialogs.alert(e.message);
                 })
                 .finally(() => this.loading = false);
+        },
+        _getVisibleItems() {
+            return this.startups;
+        },
+        filterItems(filter) {
+            visibleItems = this.startups.filter((value) => {
+                return value.name.includes(filter)
+                    || value.industry.includes(filter)
+                    || value.solution.includes(filter)
+                    || value.country.includes(filter)
+                    || value.contactDate.includes(filter)
+                    || value.website.includes(filter)
+                    || value.incubator.includes(filter);
+            });
         },
         onItemTap(args) {
             const tappedIndex = args.index;
