@@ -7,28 +7,48 @@ const startupsService = require("~/services/startup-service");
 const spreadsheetId = '1KSe1V27k_RY4cE7gIcUJD0Kaca9uRyQKNdoTLLVisj0';
 const range = "Sheet1";
 
-function StartupsViewModel() {
+function StartupsViewModel(favouritesOnly = false) {
     const viewModel = observableModule.fromObject({
         startups: null,
         visibleItems: [],
         filter: null,
         loading: true,
+        loadData() {
+            this.loading = true;
+            startupsService.getStartups()
+                .then((startups) => this._startupsLoaded(startups))
+                .catch((e) => this._startupLoadError(e))
+                .finally(() => this._startupLoadComplete());
+        },
         refreshData() {
             this.loading = true;
-            startupsService.getStartups(spreadsheetId, range)
+            startupsService.getRemoteStartups(spreadsheetId, range)
                 .then((startups) => {
-                    this.startups = startups.map((e) => observableModule.fromObjectRecursive(e));
-                    this.visibleItems = this._getVisibleItems();
-                    if (this.filter) {
-                        this.filterItems(this.filter)
-                    }
+                    this._startupsLoaded(startups);
                 })
                 .catch((e) => {
-                    dialogs.alert(e.message);
+                    this._startupLoadError(e);
                 })
-                .finally(() => this.loading = false);
+                .finally(() => this._startupLoadComplete);
+        },
+        _startupLoadComplete () {
+            this.loading = false
+        },
+        _startupLoadError(e) {
+            dialogs.alert(e.message);
+        },
+        _startupsLoaded(startups) {
+            this.startups = startups.map((e) => observableModule.fromObjectRecursive(e));
+            this.visibleItems = this._getVisibleItems();
+            if (this.filter) {
+                this.filterItems(this.filter)
+            }
         },
         _getVisibleItems() {
+            console.log(this.startups.filter((s) => s.favourite));
+            if (favouritesOnly) {
+                return this.startups.filter((s) => s.favourite); 
+            }
             return this.startups;
         },
         filterItems(filter) {
@@ -66,7 +86,7 @@ function StartupsViewModel() {
                 });
         }
     });
-    viewModel.refreshData();
+    viewModel.loadData();
 
     return viewModel;
 }
