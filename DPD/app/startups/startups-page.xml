@@ -3,7 +3,7 @@
     xmlns="http://schemas.nativescript.org/tns.xsd">
 
     <GridLayout>
-        <ListView visibility="{{ !loading ? 'visible' : 'collapse' }}" items="{{ startups }}" itemTap="{{ onItemTap }}" class="list-group">
+        <ListView visibility="{{ !loading ? 'visible' : 'collapse' }}" items="{{ visibleItems }}" itemTap="{{ onItemTap }}" class="list-group">
             <ListView.itemTemplate>
                 <StackLayout orientation="horizontal" class="list-group-item">
                     <Label text="{{ name }}" textWrap="true" class=""></Label>

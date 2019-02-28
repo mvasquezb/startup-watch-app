@@ -7,6 +7,7 @@ function onNavigatingTo(args) {
     const page = args.object;
     if (viewModel == null) {
         viewModel = new StartupsViewModel();
+        viewModel.refreshData();
     }
     page.bindingContext = viewModel;
     frameModule.topmost().actionBarVisibility = "never";
