@@ -29,7 +29,9 @@ function formatJSONResults(values) {
             return acc;
         }, {});
         // Fill missing field, only trailing columns or rows are omitted
-        startup[FIELD_MAP[fields[fields.length - 1]]] = "";
+        if (!(FIELD_MAP[fields[fields.length - 1]] in startup)) {
+            startup[FIELD_MAP[fields[fields.length - 1]]] = "";
+        }
         return startup;
     });
     return startups;
