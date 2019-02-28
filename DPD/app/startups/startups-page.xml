@@ -2,8 +2,14 @@
     navigatingTo="onNavigatingTo" 
     xmlns="http://schemas.nativescript.org/tns.xsd">
 
-    <GridLayout>
-        <ListView visibility="{{ !loading ? 'visible' : 'collapse' }}" items="{{ visibleItems }}" itemTap="{{ onItemTap }}" class="list-group">
+    <GridLayout columns="*" rows="auto, *">
+        <SearchBar class="search-bar" row="0" col="0" 
+            hint="{{ searchHint }}"
+            text="{{ filterText }}"
+            clear="{{ () => filterItems(filterText) }}"
+            submit="{{ () => filterItems(filterText) }}" />
+
+        <ListView row="1" col="0" visibility="{{ !loading ? 'visible' : 'collapse' }}" items="{{ visibleItems }}" itemTap="{{ onItemTap }}" class="list-group">
             <ListView.itemTemplate>
                 <StackLayout orientation="horizontal" class="list-group-item">
                     <Label text="{{ name }}" textWrap="true" class=""></Label>
