@@ -54,14 +54,15 @@ function StartupsViewModel(favouritesOnly = false) {
         filterItems(filter = this.filterText) {
             this.visibleItems = this._getVisibleItems();
             if (filter) {
+                filter = filter.toLowerCase();
                 this.visibleItems = this.visibleItems.filter((value) => {
-                    return value.name.includes(filter)
-                        || value.industry.includes(filter)
-                        || value.solution.includes(filter)
-                        || value.country.includes(filter)
-                        || value.contactDate.includes(filter)
-                        || value.website.includes(filter)
-                        || value.incubator.includes(filter);
+                    return value.name.toLowerCase().includes(filter)
+                        || value.industry.toLowerCase().includes(filter)
+                        || value.solution.toLowerCase().includes(filter)
+                        || value.country.toLowerCase().includes(filter)
+                        || value.contactDate.toLowerCase().includes(filter)
+                        || value.website.toLowerCase().includes(filter)
+                        || value.incubator.toLowerCase().includes(filter);
                 });
             }
         },
