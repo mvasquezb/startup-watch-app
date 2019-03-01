@@ -29,3 +29,10 @@ function buttonLoaded(args) {
 }
 
 exports.buttonLoaded = buttonLoaded;
+
+function searchBarLoaded(args) {
+    const searchBar = args.object;
+    searchBar.android.clearFocus();
+}
+
+exports.searchBarLoaded = searchBarLoaded;
