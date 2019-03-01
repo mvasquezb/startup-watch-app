@@ -5,7 +5,7 @@
             "version": "5.2.0"
         },
         "tns-android": {
-            "version": "5.2.0"
+            "version": "5.2.1"
         }
     },
     "description": "NativeScript Application",
@@ -14,6 +14,7 @@
     "dependencies": {
         "nativescript-localstorage": "^2.0.0",
         "nativescript-theme-core": "~1.0.4",
+        "nativescript-ui-chart": "^3.11.1",
         "tns-core-modules": "~5.2.0"
     },
     "devDependencies": {
