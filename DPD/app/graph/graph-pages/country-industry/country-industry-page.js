@@ -1,17 +1,21 @@
 const topmost = require("ui/frame").topmost;
+const CountryIndustryViewModel = require("./country-industry-viewmodel");
+const BarSeries = require("nativescript-ui-chart").BarSeries;
+const ObservableArray = require("tns-core-modules/data/observable-array").ObservableArray;
 
 function onNavigatingTo(args) {
     const page = args.object;
-    page.bindingContext = {
-        categoricalSource: [
-            { Country: "Germany", Amount: 15, SecondVal: 14, ThirdVal: 24 },
-            { Country: "France", Amount: 13, SecondVal: 23, ThirdVal: 25 },
-            { Country: "Bulgaria", Amount: 24, SecondVal: 17, ThirdVal: 23 },
-            { Country: "Spain", Amount: 11, SecondVal: 19, ThirdVal: 24 },
-            { Country: "USA", Amount: 18, SecondVal: 8, ThirdVal: 21 }
-        ]
-    };
-
+    const viewModel = new CountryIndustryViewModel();
+    page.bindingContext = viewModel;
+    const graph = page.getViewById('industry-country-chart');
+    graph.series = new ObservableArray(viewModel.data.map((series) => {
+        const bar = new BarSeries();
+        bar.items = series;
+        bar.categoryProperty = "Country";
+        bar.valueProperty = "Amount";
+        bar.stackMode = "Stack";
+        return bar;
+    }));
 }
 
 exports.onNavigatingTo = onNavigatingTo;
