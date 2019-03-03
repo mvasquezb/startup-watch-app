@@ -1,35 +1,38 @@
 const observableModule = require("tns-core-modules/data/observable");
+const dialogs = require("ui/dialogs");
+const startupsService = require("~/services/startup-service");
 
-function buildGraphData() {
-    return [
-        [
-            { Country: "Germany", Amount: 15, SecondVal: 14, ThirdVal: 24 },
-            { Country: "France", Amount: 13, SecondVal: 23, ThirdVal: 25 },
-            { Country: "Bulgaria", Amount: 24, SecondVal: 17, ThirdVal: 23 },
-            { Country: "Spain", Amount: 11, SecondVal: 19, ThirdVal: 24 },
-            { Country: "USA", Amount: 18, SecondVal: 8, ThirdVal: 21 }
-        ],
-        [
-            { Country: "Germany", Amount: 15, SecondVal: 14, ThirdVal: 24 },
-            { Country: "France", Amount: 13, SecondVal: 23, ThirdVal: 25 },
-            { Country: "Bulgaria", Amount: 24, SecondVal: 17, ThirdVal: 23 },
-            { Country: "Spain", Amount: 11, SecondVal: 19, ThirdVal: 24 },
-            { Country: "USA", Amount: 18, SecondVal: 8, ThirdVal: 21 }
-        ],
-        [
-            { Country: "Germany", Amount: 15, SecondVal: 14, ThirdVal: 24 },
-            { Country: "France", Amount: 13, SecondVal: 23, ThirdVal: 25 },
-            { Country: "Bulgaria", Amount: 24, SecondVal: 17, ThirdVal: 23 },
-            { Country: "Spain", Amount: 11, SecondVal: 19, ThirdVal: 24 },
-            { Country: "USA", Amount: 18, SecondVal: 8, ThirdVal: 21 }
-        ],
-    ]
+function buildGraphData(startups) {
+    let countries = Array.from(new Set(startups.map((s) => s.country)));
+    let industries = Array.from(new Set(startups.map((s) => s.industry)));
+
+    return industries.map((industry) => {
+        return {
+            name: industry,
+            points: countries.map((country) => {
+                return {
+                    country: country,
+                    amount: startups.filter((s) => s.country === country && s.industry === industry).length
+                }
+            })
+        };
+    });
 }
 
 function CountryIndustryViewModel() {
     const viewModel = observableModule.fromObject({
-        data: buildGraphData(),
+        data: [],
+        load() {
+            let startups = startupsService.getStartups()
+                .then((startups) => {
+                    this.data = buildGraphData(startups);
+                })
+                .catch((e) => {
+                    dialogs.alert(e.message);
+                });
+        }
     });
+    viewModel.load();
 
     return viewModel;
 }

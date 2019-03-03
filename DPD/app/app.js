@@ -5,7 +5,6 @@ purpose of the file is to pass control to the app’s first module.
 */
 const application = require("application");
 const backendService = require("~/services/backend-service");
-const usersService = require("~/services/user-service");
 
 backendService.setup();
 
