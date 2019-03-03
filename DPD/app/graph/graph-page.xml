@@ -1,8 +1,13 @@
-<Page class="page"
-    navigatingTo="onNavigatingTo"
+<Page class="page" navigatingTo="onNavigatingTo" 
     xmlns="http://schemas.nativescript.org/tns.xsd">
 
-    <GridLayout>
-        <Label text="Visualization"></Label>
-    </GridLayout>
+    <StackLayout>
+        <ListView items="{{ options }}" itemTap="{{ onItemTap }}" class="list-group">
+            <ListView.itemTemplate>
+                <StackLayout orientation="horizontal" class="list-group-item">
+                    <Label text="{{ name }}" textWrap="true" class=""></Label>
+                </StackLayout>
+            </ListView.itemTemplate>
+        </ListView>
+    </StackLayout>
 </Page>
