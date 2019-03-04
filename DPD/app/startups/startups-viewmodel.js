@@ -73,7 +73,7 @@ function StartupsViewModel(favouritesOnly = false) {
             const tappedIndex = args.index;
             frame.topmost().navigate({
                 moduleName: "startups/startup-detail/startup-detail-page",
-                context: this.startups[tappedIndex],
+                context: this.visibleItems[tappedIndex],
                 animated: true,
                 transition: {
                     name: "slide",
