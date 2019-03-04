@@ -1,21 +1,23 @@
-<Page class="page"
-    navigatingTo="onNavigatingTo" 
-    xmlns="http://schemas.nativescript.org/tns.xsd">
+<Page class="page" navigatingTo="onNavigatingTo" 
+    xmlns="http://schemas.nativescript.org/tns.xsd" 
+    xmlns:pullRefresh="nativescript-pulltorefresh">
 
     <GridLayout>
-        <ListView visibility="{{ !loading ? 'visible' : 'collapse' }}" items="{{ visibleItems }}" itemTap="{{ onItemTap }}" class="list-group">
-            <ListView.itemTemplate>
-                <StackLayout orientation="horizontal" class="list-group-item">
-                    <Label text="{{ name }}" textWrap="true" class=""></Label>
-                    <StackLayout orientation="vertical" class="list-group-item">
-                        <Label text="{{ industry }}" textWrap="true"></Label>
-                        <Label text="{{ solution }}" textWrap="true"></Label>
+        <pullRefresh:PullToRefresh refresh="{{ loadData }}" refreshing="{{ loading }}">
+            <ListView visibility="{{ !loading ? 'visible' : 'collapse' }}" items="{{ visibleItems }}" itemTap="{{ onItemTap }}" class="list-group">
+                <ListView.itemTemplate>
+                    <StackLayout orientation="horizontal" class="list-group-item">
+                        <Label text="{{ name }}" textWrap="true" class=""></Label>
+                        <StackLayout orientation="vertical" class="list-group-item">
+                            <Label text="{{ industry }}" textWrap="true"></Label>
+                            <Label text="{{ solution }}" textWrap="true"></Label>
+                        </StackLayout>
+                        <!-- Font Awesome heart icon -->
+                        <Button visibility="collapse" text="&#61444;" onTap="onFavouriteTap" class="btn btn-favourite {{ favourite ? 'fas' : 'far' }}"></Button>
+                        <Label text="{{ favourite ? 'favourite' : 'no favourite' }}" textWrap="true" />
                     </StackLayout>
-                    <!-- Font Awesome heart icon -->
-                    <Button visibility="collapse" text="&#61444;" onTap="onFavouriteTap" class="btn btn-favourite {{ favourite ? 'fas' : 'far' }}"></Button>
-                    <Label text="{{ favourite ? 'favourite' : 'no favourite' }}" textWrap="true" />
-                </StackLayout>
-            </ListView.itemTemplate>
-        </ListView>
+                </ListView.itemTemplate>
+            </ListView>
+        </pullRefresh:PullToRefresh>
     </GridLayout>
 </Page>

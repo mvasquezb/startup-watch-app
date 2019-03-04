@@ -13,6 +13,7 @@
     "repository": "<fill-your-repository-here>",
     "dependencies": {
         "nativescript-localstorage": "^2.0.0",
+        "nativescript-pulltorefresh": "2.2.0",
         "nativescript-theme-core": "~1.0.4",
         "nativescript-ui-chart": "^3.11.1",
         "tns-core-modules": "~5.2.0"

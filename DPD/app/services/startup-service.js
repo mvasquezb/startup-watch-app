@@ -80,15 +80,17 @@ exports.toggleFavourite = (startup) => {
     return new Promise((resolve, reject) => {
         try {
             let currentUser = usersService.currentUser();
-            let favouritesByUser = JSON.parse(localStorage.getItem(`${stateKey}/${currentUser.username}/favourites`));
-            if (startup.name in favouritesByUser) {
-                delete favouritesByUser[startup.name];
+            let userFavourites = JSON.parse(localStorage.getItem(`${stateKey}/${currentUser.username}/favourites`));
+            if (startup.name in userFavourites) {
+                delete userFavourites[startup.name];
                 startup.favourite = false;
             } else {
-                favouritesByUser[startup.name] = true;
+                userFavourites[startup.name] = true;
                 startup.favourite = true;
             }
-            localStorage.setItem(`${stateKey}/${currentUser.username}/favourites`, JSON.stringify(favouritesByUser));
+            localStorage.setItem(`${stateKey}/${currentUser.username}/favourites`, JSON.stringify(userFavourites));
+            let startups = JSON.parse(localStorage.getItem(`${stateKey}/startups`));
+            localStorage.setItem(`${stateKey}/startups`, JSON.stringify(markFavourites(startups, currentUser)));
             resolve(startup);
         } catch (e) {
             handleErrors(e);
