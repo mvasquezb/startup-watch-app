@@ -17,5 +17,9 @@
         <chart:RadCartesianChart.verticalAxis>
             <chart:CategoricalAxis allowPan="true"/>
         </chart:RadCartesianChart.verticalAxis>
+        
+        <chart:RadCartesianChart.trackball>
+            <chart:Trackball snapMode="AllClosestPoints" showIntersectionPoints="true" trackBallContentRequested="onTrackBallContentRequested"/>
+        </chart:RadCartesianChart.trackball>
     </chart:RadCartesianChart>
 </Page>

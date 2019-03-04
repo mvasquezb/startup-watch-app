@@ -35,3 +35,9 @@ function onNavigatingFrom(args) {
 }
 
 exports.onNavigatingFrom = onNavigatingFrom;
+
+exports.onTrackBallContentRequested = (args) => {
+    let selectedItem = args.pointData;
+    let viewModel = topmost().currentPage.bindingContext;
+    args.content = `${viewModel.data[args.seriesIndex].name}: ${selectedItem.amount}`;
+}

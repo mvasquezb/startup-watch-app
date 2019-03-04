@@ -30,10 +30,6 @@ function SolutionCountryViewModel() {
                 .catch((e) => {
                     dialogs.alert(e.message);
                 });
-        },
-        onTrackBallContentRequested(args) {
-            let selectedItem = args.pointData;
-            args.content = `${data[args.seriesIndex].name}: ${selectedItem.amount}`;
         }
     });
     viewModel.load();

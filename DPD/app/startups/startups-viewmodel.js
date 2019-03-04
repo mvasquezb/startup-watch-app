@@ -39,6 +39,9 @@ function StartupsViewModel(favouritesOnly = false) {
             dialogs.alert(e.message);
         },
         _startupsLoaded(startups) {
+            if (startups === null) {
+                return;
+            }
             this.startups = startups.map((e) => observableModule.fromObjectRecursive(e));
             this.visibleItems = this._getVisibleItems();
             if (this.filterText) {
