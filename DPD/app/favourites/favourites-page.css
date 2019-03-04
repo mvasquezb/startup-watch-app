@@ -1,0 +1,41 @@
+.list-group-item {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-right: 40;
+}
+
+.list-group-item .column {
+    padding: 10;
+}
+
+.startup-name {
+    width: 28%;
+}
+
+.startup-description {
+    flex: 1;
+}
+
+.list-group-item .icon-favourite {
+    margin-left: auto;
+    margin-right: 20;
+}
+
+.icon-favourite {
+    width: 36;
+}
+
+.btn-favourite {
+    border-radius: 5;
+    font-size: 14;
+    vertical-align: middle;
+}
+
+.far.btn-favourite {
+    font-family: FontAwesomeRegular;
+}
+
+.fas.btn-favourite {
+    font-family: FontAwesome;
+}

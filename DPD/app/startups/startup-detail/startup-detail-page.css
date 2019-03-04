@@ -1,0 +1,28 @@
+.page {
+    font-size: 15;
+    padding: 16;
+}
+
+.header {
+    justify-content: space-between;
+    padding: 16;
+}
+
+.icon-favourite {
+    margin-left: auto;
+    width: 36;
+}
+
+.container .form-group {
+    display: flex;
+}
+
+.field-name {
+    font-size: 16;
+    font-weight: bold;
+    margin: 8;
+}
+
+.field-value {
+    margin: 8;
+}

@@ -30,11 +30,11 @@ refer to http://docs.nativescript.org/ui/theme.
 }
 
 .fa, .far {
-    font-family: "Font Awesome 5 Free Regular";
+    font-family: "Font Awesome 5 Free Regular", FontAwesomeRegular;
     font-weight: 400;
 }
 
 .fas {
-    font-family: "Font Awesome 5 Free Solid";
+    font-family: "Font Awesome 5 Free Solid", FontAwesome;
     font-weight: 900;
 }

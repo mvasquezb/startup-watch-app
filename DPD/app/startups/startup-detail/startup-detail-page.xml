@@ -1,26 +1,40 @@
-<Page
-    class="page"
-    navigatingTo="onNavigatingTo"  
+<Page class="page" navigatingTo="onNavigatingTo" 
     xmlns="http://schemas.nativescript.org/tns.xsd">
 
-    <StackLayout>
-        <Label class="m-10 h3" text="{{ startup.name }}" verticalAlignment="top" ></Label>
-        <!-- <Label class="field-name" text="Industry"></Label> -->
-        <Label class="field-value" text="{{ startup.industry }}"></Label>
+    <StackLayout class="container">
+        <FlexboxLayout class="header">
+            <Label class="m-10 h2" text="{{ startup.name }}" verticalAlignment="top"></Label>
+            <Image class="icon-favourite" src="{{ startup.favourite ? '~/images/favourite.png' : '~/images/favourite-border.png' }}" />
+        </FlexboxLayout>
 
-        <!-- <Label class="field-name" text="Industry"></Label> -->
-        <Label class="field-value" text="{{ startup.solution }}"></Label>
-        
-        <!-- <Label class="field-name" text="Industry"></Label> -->
-        <Label class="field-value" text="{{ startup.country }}"></Label>
-        
-        <!-- <Label class="field-name" text="Industry"></Label> -->
-        <Label class="field-value" text="{{ startup.contactDate }}"></Label>
-        
-        <!-- <Label class="field-name" text="Industry"></Label> -->
-        <Label class="field-value" text="{{ startup.incubator }}"></Label>
-        
-        <!-- <Label class="field-name" text="Industry"></Label> -->
-        <Label class="field-value" text="{{ startup.website }}"></Label>
+        <StackLayout orientation="horizontal" class="form-group">
+            <Label class="field-name" text="Industry"></Label>
+            <Label class="field-value" text="{{ startup.industry }}"></Label>
+        </StackLayout>
+
+        <StackLayout orientation="horizontal" class="form-group">
+            <Label class="field-name" text="Solution Type"></Label>
+            <Label class="field-value" text="{{ startup.solution }}"></Label>
+        </StackLayout>
+
+        <StackLayout orientation="horizontal" class="form-group">
+            <Label class="field-name" text="Country"></Label>
+            <Label class="field-value" text="{{ startup.country }}"></Label>
+        </StackLayout>
+
+        <StackLayout orientation="horizontal" class="form-group">
+            <Label class="field-name" text="Contact Date"></Label>
+            <Label class="field-value" text="{{ startup.contactDate }}"></Label>
+        </StackLayout>
+
+        <StackLayout orientation="horizontal" class="form-group">
+            <Label class="field-name" text="Startup Incubator"></Label>
+            <Label class="field-value" text="{{ startup.incubator }}"></Label>
+        </StackLayout>
+
+        <StackLayout orientation="horizontal" class="form-group">
+            <Label class="field-name" text="Website"></Label>
+            <Label class="field-value" text="{{ startup.website }}"></Label>
+        </StackLayout>
     </StackLayout>
 </Page>
