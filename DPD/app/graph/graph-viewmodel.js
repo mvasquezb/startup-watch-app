@@ -13,14 +13,14 @@ function GraphsViewModel() {
                 name: 'Solution Type by Country',
                 page: 'graph/graph-pages/solution-country/solution-country-page'
             },
-            {
-                name: 'Solution Type by Industry',
-                page: 'graph/graph-pages/solution-industry/solution-industry-page'
-            },
-            {
-                name: 'Industry by University',
-                page: 'graph/graph-pages/industry-university/industry-university-page'
-            }
+            // {
+            //     name: 'Solution Type by Industry',
+            //     page: 'graph/graph-pages/solution-industry/solution-industry-page'
+            // },
+            // {
+            //     name: 'Industry by University',
+            //     page: 'graph/graph-pages/industry-university/industry-university-page'
+            // }
         ],
         onItemTap(args) {
             const item = this.options[args.index];
