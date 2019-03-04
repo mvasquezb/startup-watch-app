@@ -29,12 +29,12 @@ refer to http://docs.nativescript.org/ui/theme.
     margin-bottom: 15;
 }
 
-.far {
-    font-family: "Font Awesome 5 Free", "fa-regular-400";
+.fa, .far {
+    font-family: "Font Awesome 5 Free Regular";
     font-weight: 400;
 }
 
 .fas {
-    font-family: "Font Awesome 5 Free", "fa-solid-900";
+    font-family: "Font Awesome 5 Free Solid";
     font-weight: 900;
 }
