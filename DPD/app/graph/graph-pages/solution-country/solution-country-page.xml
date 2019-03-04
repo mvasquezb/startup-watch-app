@@ -1,24 +1,25 @@
-<Page class="page" navigatingTo="onNavigatingTo" navigatingFrom="onNavigatingFrom"
+<Page class="page" navigatingTo="onNavigatingTo" navigatingFrom="onNavigatingFrom" 
     xmlns="http://schemas.nativescript.org/tns.xsd" 
     xmlns:chart="nativescript-ui-chart">
 
     <chart:RadCartesianChart id="solution-country-chart">
+        <chart:RadCartesianChart.legend>
+            <chart:RadLegendView position="Top" title="Solution Type by Country" titleSize="10" enableSelection="true"/>
+        </chart:RadCartesianChart.legend>
+
         <chart:RadCartesianChart.series>
-            <chart:BarSeries items="{{ categoricalSource }}" stackMode="Stack" categoryProperty="Country" valueProperty="Amount">
-
-            </chart:BarSeries>
-            <chart:BarSeries items="{{ categoricalSource }}" stackMode="Stack" categoryProperty="Country" valueProperty="Amount">
-
-            </chart:BarSeries>
-            <chart:BarSeries items="{{ categoricalSource }}" stackMode="Stack" categoryProperty="Country" valueProperty="Amount">
-
-            </chart:BarSeries>
         </chart:RadCartesianChart.series>
+
         <chart:RadCartesianChart.horizontalAxis>
-            <chart:CategoricalAxis/>
+            <chart:LinearAxis allowPan="true"/>
         </chart:RadCartesianChart.horizontalAxis>
+
         <chart:RadCartesianChart.verticalAxis>
-            <chart:LinearAxis/>
+            <chart:CategoricalAxis allowPan="true"/>
         </chart:RadCartesianChart.verticalAxis>
+
+        <chart:RadCartesianChart.trackball>
+            <chart:Trackball snapMode="AllClosestPoints" showIntersectionPoints="true" trackBallContentRequested="{{ onTrackBallContentRequested }}"/>
+        </chart:RadCartesianChart.trackball>
     </chart:RadCartesianChart>
 </Page>

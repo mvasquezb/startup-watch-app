@@ -1,20 +1,30 @@
+const Observable = require("tns-core-modules/data/observable").Observable;
 const topmost = require("ui/frame").topmost;
+const SolutionCountryViewModel = require("./solution-country-viewmodel");
+const BarSeries = require("nativescript-ui-chart").BarSeries;
+const ObservableArray = require("tns-core-modules/data/observable-array").ObservableArray;
 
 function onNavigatingTo(args) {
     const page = args.object;
-    const context = args.context;
-    const rootPage = topmost().parent.page;
-    rootPage.actionBar.title = context.name;
+    const viewModel = new SolutionCountryViewModel();
+    page.bindingContext = viewModel;
+    topmost().parent.page.actionBar.title = viewModel.name;
 
-    page.bindingContext = {
-        categoricalSource: [
-            { Country: "Germany", Amount: 15, SecondVal: 14, ThirdVal: 24 },
-            { Country: "France", Amount: 13, SecondVal: 23, ThirdVal: 25 },
-            { Country: "Bulgaria", Amount: 24, SecondVal: 17, ThirdVal: 23 },
-            { Country: "Spain", Amount: 11, SecondVal: 19, ThirdVal: 24 },
-            { Country: "USA", Amount: 18, SecondVal: 8, ThirdVal: 21 }
-        ]
-    };
+    const graph = page.getViewById('solution-country-chart');
+    graph.series = new ObservableArray([]);
+    viewModel.addEventListener(Observable.propertyChangeEvent, (args) => {
+        if (args.propertyName === "data") {
+            viewModel.data.forEach((series) => {
+                const bar = new BarSeries();
+                bar.items = series.points;
+                bar.legendTitle = series.name;
+                bar.categoryProperty = "country";
+                bar.valueProperty = "amount";
+                bar.stackMode = "Stack";
+                graph.series.push(bar);
+            });
+        }
+    })
 }
 
 exports.onNavigatingTo = onNavigatingTo;
